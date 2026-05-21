@@ -1,11 +1,23 @@
 """
 admin_app.py — 公文專案管理系統（Streamlit Cloud + Firebase）
 
+Streamlit Cloud Secrets 設定：
+    [firebase]
+    type = "service_account"
+    project_id = "your-project-id"
+    private_key_id = "xxxx"
+    private_key = "-----BEGIN PRIVATE KEY-----\\nxxxx\\n-----END PRIVATE KEY-----\\n"
+    client_email = "firebase-adminsdk-xxxx@your-project.iam.gserviceaccount.com"
+    client_id = "xxxx"
+    auth_uri = "https://accounts.google.com/o/oauth2/auth"
+    token_uri = "https://oauth2.googleapis.com/token"
+    database_url = "https://your-project-default-rtdb.firebaseio.com"
+
 requirements.txt：
     streamlit
     firebase-admin
     requests
-
+    jszip  # 不需要，ZIP 由 Python 產生
 """
 
 import streamlit as st
@@ -312,24 +324,23 @@ if "gemini_key" not in st.session_state:
 # Header
 # =========================
 
-col_logo, col_nav = st.columns([3, 5])
-with col_logo:
-    st.markdown("## 📋 公文專案管理系統")
-    st.caption("收文即啟動・自動建資料夾・AI 輔助產稿")
-with col_nav:
-    c1, c2, c3, c4 = st.columns(4)
-    if c1.button("🏠 首頁",       use_container_width=True,
-                 type="primary" if st.session_state.page=="home"     else "secondary"):
-        st.session_state.page = "home"; st.rerun()
-    if c2.button("📁 專案列表",    use_container_width=True,
-                 type="primary" if st.session_state.page=="projects" else "secondary"):
-        st.session_state.page = "projects"; st.rerun()
-    if c3.button("＋ 啟動新專案",  use_container_width=True,
-                 type="primary" if st.session_state.page=="form"     else "secondary"):
-        st.session_state.page = "form"; st.rerun()
-    if c4.button("🤖 AI 草稿助理", use_container_width=True,
-                 type="primary" if st.session_state.page=="ai"       else "secondary"):
-        st.session_state.page = "ai"; st.rerun()
+# ── Header ──
+st.markdown("## 📋 公文專案管理系統")
+st.caption("收文即啟動・自動建資料夾・AI 輔助產稿")
+
+c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1, 4])
+if c1.button("🏠 首頁",       use_container_width=True,
+             type="primary" if st.session_state.page=="home"     else "secondary"):
+    st.session_state.page = "home"; st.rerun()
+if c2.button("📁 專案列表",    use_container_width=True,
+             type="primary" if st.session_state.page=="projects" else "secondary"):
+    st.session_state.page = "projects"; st.rerun()
+if c3.button("＋ 啟動新專案",  use_container_width=True,
+             type="primary" if st.session_state.page=="form"     else "secondary"):
+    st.session_state.page = "form"; st.rerun()
+if c4.button("🤖 AI 草稿",    use_container_width=True,
+             type="primary" if st.session_state.page=="ai"       else "secondary"):
+    st.session_state.page = "ai"; st.rerun()
 
 st.divider()
 
