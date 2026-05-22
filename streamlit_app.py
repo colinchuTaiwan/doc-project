@@ -590,7 +590,7 @@ elif st.session_state.page == "ai":
 # =========================
 elif st.session_state.page == "qrcode":
     st.markdown("### 📱 意見表單 QR Code")
-    st.info("以下 QR Code 為固定意見表單，掃描後即可填寫。需更換圖片請直接替換程式中的 `意見表單.png`。")
+    st.info("以下 QR Code 為固定意見表單，掃描後即可填寫。")
 
     col_img, col_info = st.columns([1, 2])
     with col_img:
@@ -598,15 +598,5 @@ elif st.session_state.page == "qrcode":
     with col_info:
         st.markdown("#### 使用說明")
         st.markdown("- 📱 **手機掃描** QR Code 即可開啟意見表單")
-        st.markdown("- 🖨️ **印刷用途**：點下方按鈕下載高解析度 PNG")
-        st.markdown("- 📊 可貼於海報、公告欄、簽到表、投影片上")
-        st.markdown("- 🔁 如需更換表單，只需替換 `意見表單.png` 重新部署")
-        st.download_button(
-            label="⬇️ 下載 QR Code PNG",
-            data=QRCODE_BYTES,
-            file_name="意見表單QRCode.png",
-            mime="image/png",
-            use_container_width=True,
-            type="primary",
-        )
+
 
